@@ -30,3 +30,25 @@ When you change anything in `docs/`, bump `CACHE_VERSION` in `docs/sw.js`, other
 ## Privacy
 
 Export files contain friends' names and plans. `.gitignore` excludes `*export*.json`; never commit or deploy them.
+
+## Cloud sync (optional)
+
+Sync uses Firebase: Google sign-in plus one Firestore document per user (`wdw/{uid}`). `localStorage` stays the working copy, so the app still works offline and merges with the server when it can. Merging is three-way by item id (`docs/merge.js`, tested with `node tools/test-merge.mjs`): edits made on two devices both survive, and an edit beats a delete.
+
+Sync is off until `docs/firebase-config.js` contains your Firebase web config.
+
+### One-time setup
+
+1. Create a project at https://console.firebase.google.com (Analytics not needed).
+2. **Build > Authentication > Get started > Google**: enable it and pick a support email.
+3. **Authentication > Settings > Authorized domains**: add `YOUR-USERNAME.github.io`.
+4. **Build > Firestore Database > Create database** (production mode, any region).
+5. **Firestore > Rules**: paste the contents of `firestore.rules` and Publish.
+6. **Project settings > Your apps > Web (</>)**: register an app and copy the `firebaseConfig` object into `docs/firebase-config.js`. These values are not secrets; the rules and sign-in protect the data.
+7. Bump `CACHE_VERSION` in `docs/sw.js`, commit, and push.
+
+### Notes
+
+- Data for each Google account is private to that account; open the site and tap "Sign in with Google to sync" on each device, using the same account.
+- On iPhone, if sign-in fails inside the Home Screen app, sign in once from the Safari tab first.
+- Friends' names and plans are stored in your Firebase project once you turn sync on.

@@ -1,12 +1,15 @@
 // Offline support: precache the app shell, serve cache-first, refresh in the background.
 // Bump CACHE_VERSION whenever any file in ASSETS changes so users get the update.
-const CACHE_VERSION = 'v1.7.0';
+const CACHE_VERSION = 'v1.8.0';
 const CACHE_NAME = 'whos-doing-what-' + CACHE_VERSION;
 
 const ASSETS = [
   './',
   'index.html',
   'manifest.webmanifest',
+  'sync.js',
+  'merge.js',
+  'firebase-config.js',
   'fonts/fonts.css',
   'fonts/fraunces-latin-opsz-normal.woff2',
   'fonts/fraunces-latin-opsz-italic.woff2',
