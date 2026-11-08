@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Who's Doing What</title>
 <meta name="description" content="Keep track of what your friends told you they're doing. No new calendar events. Your data stays on your device.">
 <meta name="theme-color" content="#EEEDE3">
@@ -33,6 +33,12 @@
     --radius:10px;
   }
   *{box-sizing:border-box;}
+  /* App-like behavior: no pinch/double-tap zoom, no text-size jumps. */
+  html{
+    touch-action:manipulation;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
   body{
     margin:0;
     font-family:'Inter',sans-serif;
@@ -813,7 +819,7 @@
 
   <div id="app" class="loading">loading board…</div>
 
-  <div class="app-footer">Who's Doing What · v1.8 · Last updated Nov 8, 2026</div>
+  <div class="app-footer">Who's Doing What · v1.8.1 · Last updated Nov 8, 2026</div>
 </div>
 
 <script>
@@ -2122,6 +2128,9 @@ function wireEvents(){
   const calToday = document.getElementById('cal-today');
   if(calToday) calToday.addEventListener('click', ()=>{ calendarAnchor = todayISO(); render(); });
 }
+
+// iOS Safari ignores user-scalable=no for pinch gestures; block them explicitly.
+['gesturestart', 'gesturechange', 'gestureend'].forEach(t => document.addEventListener(t, e => e.preventDefault()));
 
 // Hooks used by the optional sync module (sync.js).
 window.wdwApp = {
