@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+
+# Personal data exports: contain friends' names and plans. Never commit or deploy these.
+whos-doing-what-export*.json
+*-export-*.json
+*.export.json
