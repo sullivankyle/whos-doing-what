@@ -1,5 +1,5 @@
 [build]
-  publish = "public"
+  publish = "docs"
 
 # Always revalidate the service worker and manifest so updates ship promptly.
 [[headers]]

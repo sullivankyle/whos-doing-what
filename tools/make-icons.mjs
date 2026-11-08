@@ -91,7 +91,7 @@ function png(size, rgba) {
   ]);
 }
 
-const dir = new URL('../public/icons/', import.meta.url);
+const dir = new URL('../docs/icons/', import.meta.url);
 mkdirSync(dir, { recursive: true });
 const save = (name, size, opts) => writeFileSync(new URL(name, dir), png(size, render(size, opts)));
 
